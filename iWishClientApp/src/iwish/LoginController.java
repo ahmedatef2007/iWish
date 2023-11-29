@@ -359,8 +359,8 @@ public class LoginController extends StackPane {
 
     public void loginAccount() {
         try (Socket socket = new Socket("127.0.0.1", 5005);
-             DataInputStream dis = new DataInputStream(socket.getInputStream());
-             PrintStream ps = new PrintStream(socket.getOutputStream())) {
+                DataInputStream dis = new DataInputStream(socket.getInputStream());
+                PrintStream ps = new PrintStream(socket.getOutputStream())) {
 
             if (si_username.getText().isEmpty() || si_password.getText().isEmpty()) {
                 showAlert(Alert.AlertType.ERROR, "Error Message", "Please fill in your username and password");

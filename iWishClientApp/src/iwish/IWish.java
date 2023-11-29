@@ -47,6 +47,7 @@ public class IWish extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        /*
         try {
             Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/iWish", "root", "root");
             Statement s = connection.createStatement();
@@ -60,6 +61,7 @@ public class IWish extends Application {
             Logger.getLogger(IWish.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+         */
         launch(args);
     }
 
