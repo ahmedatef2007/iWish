@@ -22,7 +22,7 @@
             </AnchorPane>
          </left>
          <right>
-            <AnchorPane prefHeight="501.0" prefWidth="406.0" BorderPane.alignment="CENTER">
+            <AnchorPane prefHeight="501.0" prefWidth="406.0" styleClass="white-form" stylesheets="@design.css" BorderPane.alignment="CENTER">
                <children>
                   <Label layoutX="129.0" layoutY="133.0" styleClass="login" stylesheets="@design.css" text="Log In  Form" textAlignment="CENTER" />
                   <TextField fx:id="si_username" layoutX="148.0" layoutY="237.0" promptText="Enter Your Username" />
