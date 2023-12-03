@@ -11,14 +11,14 @@ import java.io.PrintStream;
 import java.net.Socket;
 
 /**
- *
  * @author ahmed
  */
+
 public class ClientSocketManager {
 
     private static Socket socket;
-    private static DataInputStream dis;
-    private static PrintStream ps;
+    private static DataInputStream dis; // ear
+    private static PrintStream ps; // mouth
 
     public static void initializeSocket() {
         try {

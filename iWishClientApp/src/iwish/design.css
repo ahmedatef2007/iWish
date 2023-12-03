@@ -31,6 +31,18 @@ and open the template in the editor.
     -fx-border-color: #fff;
     -fx-cursor: hand;
 }
+.login-btn{
+    -fx-background-color:linear-gradient(to bottom right ,#9e20a0 , #5a3375 );
+    -fx-text-fill: #fff;
+    -fx-cursor: hand;
+}
+
+.login-btn:hover{
+    -fx-background-color:linear-gradient(to bottom right ,#a914ae , #7f4fa4 );
+    -fx-text-fill: #fff;
+    -fx-font-size : 14px;
+    -fx-cursor: hand;
+}
 .create-btn:hover{
     -fx-background-color: #fff;
     -fx-text-fill: linear-gradient(to bottom right ,#9e20a0 , #5a3375 );

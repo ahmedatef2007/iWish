@@ -10,8 +10,6 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
@@ -22,19 +20,17 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 /**
- *
  * @author ahmed
  */
 public class IWish extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = new LoginController();
-
-        //Parent root = FXMLLoader.load(getClass().getResource("FXMLDocument.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("LoginRegisterFXMLDocument.fxml"));
         Scene scene = new Scene(root);
-
+        
         stage.setScene(scene);
+        stage.setTitle("I-Wish App");
         stage.show();
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             @Override
@@ -49,21 +45,7 @@ public class IWish extends Application {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        /*
-        try {
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/iWish", "root", "root");
-            Statement s = connection.createStatement();
-            ResultSet rs = s.executeQuery("Select * from user");
-            while (rs.next()) {
-                System.out.println(rs.getString("username") + "-" + rs.getString("password"));
 
-            }
-
-        } catch (SQLException ex) {
-            Logger.getLogger(IWish.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        */
         launch(args);
     }
 
