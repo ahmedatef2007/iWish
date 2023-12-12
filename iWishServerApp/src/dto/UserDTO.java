@@ -16,7 +16,11 @@ public class UserDTO {
     private String email;
     private String firstName;
     private String lastName;
-    private int balance;
+    private double balance;
+
+    public UserDTO(double balance) {
+        this.balance = balance;
+    }
 
     public UserDTO(String username, String password, String email, String firstName, String lastName, int balance) {
         this.username = username;
@@ -26,7 +30,13 @@ public class UserDTO {
         this.lastName = lastName;
         this.balance = balance;
     }
-    // for register 
+
+    public UserDTO(String firstName, String lastName, String email) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+
     public UserDTO(String username, String password, String email, String firstName, String lastName) {
         this.username = username;
         this.password = password;
@@ -34,18 +44,19 @@ public class UserDTO {
         this.firstName = firstName;
         this.lastName = lastName;
     }
-    // for log in 
+
     public UserDTO(String email, String password) {
         this.email = email;
         this.password = password;
 
     }
 
-    public String getUsername() {
-        return username;
+    public UserDTO() {
+
     }
 
-    public UserDTO() {
+    public String getUsername() {
+        return username;
     }
 
     public void setUsername(String username) {
@@ -84,7 +95,7 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 

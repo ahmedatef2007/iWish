@@ -23,6 +23,9 @@ public class MyContributersDTO {
         this.contribution_amount = contribution_amount;
     }
 
+    public MyContributersDTO() {
+    }
+
     public String getContributor_first_name() {
         return contributor_first_name;
     }
@@ -54,5 +57,7 @@ public class MyContributersDTO {
     public void setContribution_amount(double contribution_amount) {
         this.contribution_amount = contribution_amount;
     }
+
+    
 
 }

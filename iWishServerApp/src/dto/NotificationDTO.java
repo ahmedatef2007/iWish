@@ -1,71 +1,78 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dto;
 
-import java.sql.Date;
 
-/**
- *
- * @author ahmed
- */
+
 public class NotificationDTO {
-    private String userEmail;
-    private String fromEmail;
-    private String notificationText;
-    private java.sql.Date notificationDate;
-    private boolean isNotified;
+    private int notification_id;
+    private String user_email;
+    private int from_user_id;
+    private String notification_text;
+    //private boolean is_notified;
+    private int wish_id;
 
     // Constructors, getters, and setters
 
-    public NotificationDTO(String userEmail, String fromEmail, String notificationText, java.sql.Date notificationDate, boolean isNotified) {
-        this.userEmail = userEmail;
-        this.fromEmail = fromEmail;
-        this.notificationText = notificationText;
-        this.notificationDate = notificationDate;
-        this.isNotified = isNotified;
+    public NotificationDTO(int notification_id, String user_email, int from_user_id, String notification_text,
+                             int wish_id) {
+        this.notification_id = notification_id;
+        this.user_email = user_email;
+        this.from_user_id = from_user_id;
+        this.notification_text = notification_text;
+        //this.is_notified = is_notified;
+        this.wish_id = wish_id;
     }
 
-
-    public String getUserEmail() {
-        return userEmail;
+    public NotificationDTO(int notificationId, String userEmail, int fromUserId, String notificationText, boolean notified) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
+    public int getNotification_id() {
+        return notification_id;
     }
 
-    public String getFromEmail() {
-        return fromEmail;
+    public void setNotification_id(int notification_id) {
+        this.notification_id = notification_id;
     }
 
-    public void setFromEmail(String fromEmail) {
-        this.fromEmail = fromEmail;
+    public String getUser_email() {
+        return user_email;
     }
 
-    public String getNotificationText() {
-        return notificationText;
+    public void setUser_email(String user_email) {
+        this.user_email = user_email;
     }
 
-    public void setNotificationText(String notificationText) {
-        this.notificationText = notificationText;
+    public int getFrom_user_id() {
+        return from_user_id;
     }
 
-    public Date getNotificationDate() {
-        return notificationDate;
+    public void setFrom_user_id(int from_user_id) {
+        this.from_user_id = from_user_id;
     }
 
-    public void setNotificationDate(Date notificationDate) {
-        this.notificationDate = notificationDate;
+    public String getNotification_text() {
+        return notification_text;
     }
 
-    public boolean isIsNotified() {
-        return isNotified;
+    public void setNotification_text(String notification_text) {
+        this.notification_text = notification_text;
     }
 
-    public void setIsNotified(boolean isNotified) {
-        this.isNotified = isNotified;
+    /*
+    public boolean isIs_notified() {
+        return is_notified;
+    }
+
+    public void setIs_notified(boolean is_notified) {
+        this.is_notified = is_notified;
+    }
+    */
+
+    public int getWish_id() {
+        return wish_id;
+    }
+
+    public void setWish_id(int wish_id) {
+        this.wish_id = wish_id;
     }
 }

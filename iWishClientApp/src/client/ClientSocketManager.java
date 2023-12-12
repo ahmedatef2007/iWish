@@ -9,11 +9,13 @@ import java.io.DataInputStream;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.net.Socket;
+import javafx.application.Platform;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 
 /**
  * @author ahmed
  */
-
 public class ClientSocketManager {
 
     private static Socket socket;
@@ -21,10 +23,15 @@ public class ClientSocketManager {
     private static PrintStream ps; // mouth
 
     public static void initializeSocket() {
-        try {
+        try {//10.145.12.20
             socket = new Socket("127.0.0.1", 5005);
             dis = new DataInputStream(socket.getInputStream());
             ps = new PrintStream(socket.getOutputStream());
+        } catch (java.net.ConnectException e) {
+            // Handle connection refused exception with an alert
+            Platform.runLater(() -> {
+                showAlert("Connection Error", "Could not connect to the server. Make sure the server is running.");
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -46,5 +53,13 @@ public class ClientSocketManager {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private static void showAlert(String title, String content) {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
 }

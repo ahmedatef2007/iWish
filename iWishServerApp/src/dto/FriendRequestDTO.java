@@ -12,33 +12,39 @@ import java.sql.Date;
  * @author ahmed
  */
 public class FriendRequestDTO {
-    private String fromEmail;
-    private String toEmail;
+    private String sender_email ;
+    private String receiver_email ;
     private java.sql.Date requestDate;
+    boolean is_accepted;
 
     // Constructors, getters, and setters
 
     // Example constructors (you may need to create more)
-    public FriendRequestDTO(String fromEmail, String toEmail, java.sql.Date requestDate) {
-        this.fromEmail = fromEmail;
-        this.toEmail = toEmail;
+
+    public FriendRequestDTO(String sender_email, String receiver_email, Date requestDate, boolean is_accepted) {
+        this.sender_email = sender_email;
+        this.receiver_email = receiver_email;
         this.requestDate = requestDate;
+        this.is_accepted = is_accepted;
     }
 
-    public String getFromEmail() {
-        return fromEmail;
+    public String getSender_email() {
+        return sender_email;
     }
 
-    public void setFromEmail(String fromEmail) {
-        this.fromEmail = fromEmail;
+    public void setSender_email(String sender_email) {
+        this.sender_email = sender_email;
     }
 
-    public String getToEmail() {
-        return toEmail;
+    public FriendRequestDTO() {
     }
 
-    public void setToEmail(String toEmail) {
-        this.toEmail = toEmail;
+    public String getReceiver_email() {
+        return receiver_email;
+    }
+
+    public void setReceiver_email(String receiver_email) {
+        this.receiver_email = receiver_email;
     }
 
     public Date getRequestDate() {
@@ -49,4 +55,12 @@ public class FriendRequestDTO {
         this.requestDate = requestDate;
     }
 
+    public boolean isIs_accepted() {
+        return is_accepted;
+    }
+
+    public void setIs_accepted(boolean is_accepted) {
+        this.is_accepted = is_accepted;
+    }
+   
 }

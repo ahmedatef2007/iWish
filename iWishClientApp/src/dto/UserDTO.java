@@ -16,7 +16,7 @@ public class UserDTO {
     private String email;
     private String firstName;
     private String lastName;
-    private int balance;
+    private double balance;
 
     public UserDTO(String username, String password, String email, String firstName, String lastName, int balance) {
         this.username = username;
@@ -25,6 +25,12 @@ public class UserDTO {
         this.firstName = firstName;
         this.lastName = lastName;
         this.balance = balance;
+    }
+
+    public UserDTO(String firstName, String lastName, String email) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public UserDTO(String username, String password, String email, String firstName, String lastName) {
@@ -85,7 +91,7 @@ public class UserDTO {
         this.lastName = lastName;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 

@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.String?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -12,117 +11,209 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
 
-<VBox fx:id="root" prefHeight="632.0" prefWidth="1000.0" stylesheets="@mainpage.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iwish.MainPageController">
+<VBox fx:id="root" maxHeight="585.0" maxWidth="1050.0" minHeight="585.0" minWidth="1050.0" prefHeight="585.0" prefWidth="1050" styleClass="tab-pane" stylesheets="@wish.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iwish.MainPageController">
 
-    <TabPane fx:id="tabPane">
-        <Tab fx:id="homePage" text="Home">
-            <AnchorPane prefHeight="584.0" prefWidth="944.0">
-                <ImageView fx:id="profileImage" fitHeight="100" fitWidth="108.0" layoutX="10" layoutY="10" preserveRatio="true">
-               <image>
-                  <Image url="@icons/logo.png" />
-               </image></ImageView>
-                <Label fx:id="nameLabel" layoutX="124.0" layoutY="10.0" stylesheets="@mainpage.css" text="I-Wish" textFill="WHITE">
-               <font>
-                  <Font size="23.0" />
-               </font></Label>
-                <Label fx:id="welcomeLabel" layoutX="124.0" layoutY="52.0" text="Welcome," textFill="WHITE" />
-            <Label fx:id="userNameLabel" layoutX="194.0" layoutY="53.0" text="User Name" textFill="WHITE" />
+    <TabPane fx:id="tabPane" maxHeight="585.0" maxWidth="1050.0" minHeight="585.0" minWidth="1050.0" prefHeight="585.0" prefWidth="1050.0" side="LEFT" stylesheets="@wish.css" VBox.vgrow="ALWAYS">
+        <Tab fx:id="homePage" onSelectionChanged="#updateTasks" text="Home">
 
-                <TableView fx:id="wishlistTable" layoutX="26.0" layoutY="121.0" prefHeight="400" prefWidth="499.0" styleClass="wishlist-table">
+            <AnchorPane prefHeight="584.0" prefWidth="944.0" styleClass="tab-content-home">
+
+                <TableView fx:id="wishlistTable" layoutX="26.0" layoutY="121.0" onMousePressed="#openContributersWindow" prefHeight="400" prefWidth="499.0" styleClass="wishlist-table">
                     <columns>
                         <TableColumn fx:id="wishlist_itemNameColumn" prefWidth="120.0" text="Item" />
                         <TableColumn fx:id="wishlist_itemPriceColumn" prefWidth="123.0" text="Price" />
-                        <TableColumn fx:id="wishlist_friendsContributionColumn" prefWidth="204.0" text="Friends Contribution" />
+                        <TableColumn fx:id="wishlist_friendsContributionColumn" prefWidth="252.0" text="Friends Contribution" />
                     </columns>
                 </TableView>
-
-                <Button fx:id="rechargeBalanceButton" layoutX="28.0" layoutY="535.0" onAction="#openRechargeWindow" text="Recharge Balance" />
-                <Button fx:id="showContributersButton" layoutX="797.0" layoutY="530.0" onAction="#openContributersWindow" text="Show Conributers" />
-            <Button fx:id="logout_btn" layoutX="793.0" layoutY="32.0" mnemonicParsing="false" onAction="#logout" text="Logout" />
-            <Label fx:id="userEmailLabel" layoutX="124.0" layoutY="77.0" text="Email" textFill="WHITE" />
-            <TableView fx:id="contributers_tableview" layoutX="561.0" layoutY="121.0" prefHeight="400.0" prefWidth="413.0">
-               <columns>
-                  <TableColumn fx:id="contributers_email_column" minWidth="0.0" prefWidth="209.0" text="Email" />
-                  <TableColumn fx:id="contributers_amount_column" minWidth="0.0" prefWidth="169.0" text="Contribution Amount" />
-               </columns>
-            </TableView>
+                <Button fx:id="showContributersButton" layoutX="809.0" layoutY="535.0" onAction="#openContributersWindow" prefHeight="30.0" prefWidth="165.0" text="Show Conributers" />
+                <TableView fx:id="contributers_tableview" layoutX="561.0" layoutY="121.0" prefHeight="400.0" prefWidth="413.0">
+                    <columns>
+                        <TableColumn fx:id="contributers_email_column" minWidth="0.0" prefWidth="184.0" text="Email" />
+                        <TableColumn fx:id="contributers_amount_column" minWidth="0.0" prefWidth="226.0" text="Contribution Amount" />
+                    </columns>
+                </TableView>
+                <Button fx:id="clear_wishlist_button" layoutX="360.0" layoutY="535.0" mnemonicParsing="false" onAction="#clearUserWishlist" prefHeight="30.0" prefWidth="165.0" text="Clear Wishlist" />
+                <Button fx:id="removeWishlist_button" layoutX="26.0" layoutY="535.0" mnemonicParsing="false" onAction="#handleRemoveWishlistItemButton" prefHeight="30.0" prefWidth="165.0" text="Remove Item" />
+            <AnchorPane layoutX="23.0" layoutY="13.0" prefHeight="90.0" prefWidth="953.0" styleClass="flow-pane" stylesheets="@wish.css">
+               <children>
+                  <FlowPane layoutX="64.0" layoutY="26.0" prefHeight="32.0" prefWidth="397.0">
+                     <children>
+                              <Label fx:id="welcomeLabel" styleClass="bold-label" text="  Welcome :  " textAlignment="CENTER" textFill="WHITE" />
+                        <Label fx:id="user_fname_label" text="First Name   " />
+                        <Label text=" " />
+                        <Label fx:id="user_lname_label" text="Last Name" />
+                              <Label fx:id="userEmailLabel" text="Email" textFill="WHITE" visible="false" />
+                     </children>
+                  </FlowPane>
+                        <ImageView fx:id="logo" fitHeight="43.0" fitWidth="67.0" layoutX="14.0" layoutY="20.0" preserveRatio="true">
+                     <image>
+                        <Image url="@icons/logo.png" />
+                     </image>
+                        </ImageView>
+                  <FlowPane layoutX="450.0" layoutY="27.0" prefHeight="30.0" prefWidth="302.0">
+                     <children>
+                        <Label styleClass="bold-label" text="Your Balance is : " />
+                        <Label fx:id="balance_label" text="0" />
+                        <Label text="\$" />
+                     </children>
+                  </FlowPane>
+      
+                      <Button fx:id="rechargeBalanceButton" layoutX="806.0" layoutY="45.0" onAction="#openRechargeWindow" prefHeight="25.0" prefWidth="123.0" text="Recharge Balance">
+                     <font>
+                        <Font size="12.0" />
+                     </font></Button>
+                      <Button fx:id="logout_btn" layoutX="872.0" layoutY="16.0" mnemonicParsing="false" onAction="#logout" prefHeight="25.0" prefWidth="57.0" text="Logout">
+                     <font>
+                        <Font size="12.0" />
+                     </font></Button>
+                  <Button fx:id="updateBtn" layoutX="806.0" layoutY="16.0" mnemonicParsing="false" onAction="#updateTasks" prefHeight="25.0" prefWidth="61.0" text="Update">
+                     <font>
+                        <Font size="12.0" />
+                     </font></Button>
+               </children>
+            </AnchorPane>
             </AnchorPane>
         </Tab>
-      <Tab fx:id="friendsPage" text="Friends">
+        <Tab fx:id="allItemsPage" onSelectionChanged="#updateTasks" styleClass="all-items-tab" text="Market">
+            <AnchorPane styleClass="tab-content-all-items">
+                <TableView fx:id="m_itemsTable" layoutX="21.0" layoutY="53.0" prefHeight="459.0" prefWidth="943.0">
+                    <columns>
+                        <TableColumn fx:id="m_col_itemid" prefWidth="93.0" text="Item ID" />
+                        <TableColumn fx:id="m_col_itemname" prefWidth="225.0" text="Item Name" />
+                        <TableColumn fx:id="m_col_itemcategory" prefWidth="216.0" text="Item Category" />
+                        <TableColumn fx:id="m_col_itemPrice" minWidth="7.0" prefWidth="399.0" text="Price" />
+                    </columns>
+                </TableView>
+                <Button fx:id="addToWishlistButton" layoutX="799.0" layoutY="531.0" mnemonicParsing="false" onAction="#addToWishlistBtn" prefHeight="30.0" prefWidth="165.0" text="Add To Wishlist" />
+                <Label fx:id="marketLabel" layoutX="23.0" layoutY="12.0" styleClass="bold-label" text="Market" textFill="WHITE">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Label>
+            <TextField fx:id="Searchitem" layoutX="597.0" layoutY="532.0" onKeyReleased="#Searchitemsaction" prefHeight="30.0" prefWidth="165.0" promptText="Search" />
+            </AnchorPane>
+        </Tab>
+        <Tab fx:id="friendsPage" onSelectionChanged="#updateTasks" styleClass="friends-tab" text="Friends">
+            <content>
+                <AnchorPane styleClass="tab-content-friends">
+                    <children>
+                        <Label fx:id="friendsLabel1" layoutX="24.0" layoutY="10.0" styleClass="bold-label" text="Friends" textFill="WHITE">
+                            <font>
+                                <Font size="15.0" />
+                            </font>
+                        </Label>
+                        <Button layoutX="24.0" layoutY="516.0" mnemonicParsing="false" onAction="#RemoveFriend" prefHeight="30.0" prefWidth="165.0" text="Remove Friend" />
+                        <TableView fx:id="friendstableview" layoutX="24.0" layoutY="43.0" onMousePressed="#openFriendWishlist" prefHeight="460.0" prefWidth="486.0">
+                            <columns>
+                                <TableColumn fx:id="friendtable_fristname" prefWidth="128.0" text="First Name" />
+                                <TableColumn fx:id="friendtable_lastname" minWidth="7.0" prefWidth="119.0" text="Last Name" />
+                                <TableColumn fx:id="friendtable_email" prefWidth="234.0" text="Friend Email" />
+                            </columns>
+                        </TableView>
+                        <Button fx:id="contribute_to_fiend_button" layoutX="819.0" layoutY="514.0" mnemonicParsing="false" onAction="#ContributeToFriendController" onMouseExited="#getBalance" onMouseReleased="#openFriendWishlist" prefHeight="30.0" prefWidth="165.0" text="Contribute" />
+                        <TableView fx:id="friendwishlisttableview" layoutX="544.0" layoutY="43.0" prefHeight="460.0" prefWidth="440.0">
+                            <columns>
+                                <TableColumn fx:id="itemnamecolumn" prefWidth="131.0" text="Item Name" />
+                                <TableColumn fx:id="itemprice" prefWidth="120.0" text="Item Price" />
+                        <TableColumn fx:id="totalcontributioncolumn" prefWidth="186.0" text="Total Cotribution" />
+                            </columns>
+                        </TableView>
+                  <TextField fx:id="conamounttext" layoutX="544.0" layoutY="514.0" prefHeight="30.0" prefWidth="165.0" promptText="Amount Of Contribution" />
+                  <Button fx:id="frinendwishlist" layoutX="346.0" layoutY="514.0" mnemonicParsing="false" onAction="#openFriendWishlist" prefHeight="30.0" prefWidth="165.0" text="Show Friend's Wishlist" />
+                    </children>
+                </AnchorPane>
+            </content>
+        </Tab>
+        <Tab fx:id="connectPage" onSelectionChanged="#updateTasks" styleClass="connect-tab" text="Connect">
+            <AnchorPane styleClass="tab-content-connect">
+                <Label fx:id="allContactsLabel" layoutX="10" layoutY="10" styleClass="bold-label" text="All Contacts" textFill="WHITE">
+                    <font>
+                        <Font size="15.0" />
+                    </font>
+                </Label>
+                <Button fx:id="addFriendButton" layoutX="837.0" layoutY="50.0" mnemonicParsing="false" onMouseClicked="#addfreindaction" prefHeight="30.0" prefWidth="165.0" text="Add Friend" />
+                <TableView fx:id="allUsersTable" layoutX="24.0" layoutY="43.0" prefHeight="256.0" prefWidth="803.0">
+                    <columns>
+                        <TableColumn fx:id="allUsersfirstName_column" prefWidth="178.0" text="First Name" />
+                        <TableColumn fx:id="allusersLastName_column" minWidth="7.0" prefWidth="177.0" text="Last Name" />
+                        <TableColumn fx:id="allUsersEmail_column" prefWidth="437.0" text="Email" />
+                    </columns>
+                </TableView>
+                <TextField fx:id="friendSearchTf" layoutX="837.0" layoutY="92.0" onKeyReleased="#Searchuser" prefHeight="30.0" prefWidth="165.0" promptText="Search by email" />
+                <TableView fx:id="friend_request" layoutX="24.0" layoutY="360.0" prefHeight="200.0" prefWidth="806.0">
+                    <columns>
+                        <TableColumn fx:id="requestfriendtEmailName_col" prefWidth="291.0" text="Email" />
+                        <TableColumn fx:id="friendrequest_Date_col" prefWidth="512.0" text="Date" />
+                    </columns>
+                </TableView>
+                <Button fx:id="accept" layoutX="837.0" layoutY="360.0" mnemonicParsing="false" onMouseClicked="#Accept_friend_action" onMouseReleased="#showfriendlistData" prefHeight="30.0" prefWidth="165.0" text="Accept" />
+                <Button fx:id="cancel" layoutX="837.0" layoutY="401.0" mnemonicParsing="false" onMouseClicked="#Cancel_friend_action" prefHeight="30.0" prefWidth="165.0" text="Cancel" />
+            <Label fx:id="friendRequests_label" layoutX="14.0" layoutY="319.0" styleClass="bold-label" text="Friend Requests" textFill="WHITE">
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </Label>
+            </AnchorPane>
+        </Tab>
+        <Tab fx:id="notificationsPage" onSelectionChanged="#updateTasks" styleClass="notifications-tab" text="Notifications">
+            <AnchorPane styleClass="tab-content-notifications">
+                <Label fx:id="notificationsLabel" layoutX="10" layoutY="10" styleClass="bold-label" text="Notifications" textFill="WHITE">
+                    <font>
+                        <Font size="16.0" />
+                    </font>
+                </Label>
+                <TableView fx:id="notifications_tableView" layoutX="17.0" layoutY="51.0" prefHeight="456.0" prefWidth="979.0">
+                    <columns>
+                        <TableColumn fx:id="notification_column" prefWidth="972.0" text="Notifications" />
+                    </columns>
+                </TableView>
+                <Button fx:id="remove_notification" layoutX="835.0" layoutY="520.0" mnemonicParsing="false" onAction="#removeNotification" prefHeight="30.0" prefWidth="165.0" text="Remove" />
+                <Button fx:id="clear_notifications" layoutX="661.0" layoutY="520.0" mnemonicParsing="false" onAction="#clearNotifications" prefHeight="30.0" prefWidth="165.0" text="Clear" />
+            <TextFlow layoutX="30.0" layoutY="362.0" prefHeight="66.0" prefWidth="975.0" textAlignment="CENTER" />
+            </AnchorPane>
+        </Tab>
+      <Tab fx:id="AboutPage" onSelectionChanged="#updateTasks" text="About">
          <content>
-            <AnchorPane>
+            <AnchorPane styleClass="tab-content-about">
                <children>
-                  <Label fx:id="friendsLabel1" layoutX="10" layoutY="10" text="Friends" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
-                  <ListView fx:id="friendsListView1" layoutX="654.0" layoutY="41.0" prefHeight="460.0" prefWidth="258.0" />
-                  <Button layoutX="24.0" layoutY="516.0" mnemonicParsing="false" text="Remove Friend" />
-                  <TableView fx:id="itemsTable11" layoutX="24.0" layoutY="43.0" prefHeight="460.0" prefWidth="592.0">
-                     <columns>
-                        <TableColumn fx:id="itemCategoryColumn11" prefWidth="128.0" text="First Name" />
-                        <TableColumn fx:id="itemPriceColumnInItemsTab11" minWidth="7.0" prefWidth="119.0" text="Last Name" />
-                        <TableColumn fx:id="itemCategoryColumn111" prefWidth="128.0" text="Friend Email" />
-                     </columns>
-                  </TableView>
-                  <Label fx:id="friendsLabel11" layoutX="653.0" layoutY="14.0" text="Friend's Wishlist" textFill="WHITE">
-                     <font>
-                        <Font size="15.0" />
-                     </font>
-                  </Label>
+                  <Text fx:id="aboutUsLabel1" layoutX="415.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="About US" textAlignment="CENTER" wrappingWidth="113.13671875">
+                     <styleClass>
+                        <String fx:value="label" />
+                        <String fx:value="bold-label" />
+                     </styleClass>
+                  </Text>
+                  <TextFlow layoutX="142.0" layoutY="138.0" prefHeight="98.0" prefWidth="680.0" textAlignment="CENTER">
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="i-Wish is a fun and interactive application that provides users with an enjoyable experience while allowing them to make their friends happy by contributing to the purchase of items from their wish lists." textAlignment="CENTER" />
+                     </children>
+                  </TextFlow>
+                  <Text layoutX="417.0" layoutY="441.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Ahmed Atef " textAlignment="CENTER" wrappingWidth="117.77734375" />
+                  <Text layoutX="408.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Developed By ">
+                     <styleClass>
+                        <String fx:value="label" />
+                        <String fx:value="bold-label" />
+                     </styleClass>
+                  </Text>
+                  <Text layoutX="407.0" layoutY="488.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Supervised By ">
+                     <styleClass>
+                        <String fx:value="label" />
+                        <String fx:value="bold-label" />
+                     </styleClass>
+                  </Text>
+                  <Text layoutX="377.0" layoutY="528.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Dr. Ahmed Mazen" textAlignment="CENTER" wrappingWidth="188.77734375" />
+                  <Text layoutX="358.0" layoutY="355.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Abdelrahman Ashraf" textAlignment="CENTER" wrappingWidth="226.77734375" />
+                  <Text layoutX="358.0" layoutY="315.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Donia Ayman" textAlignment="CENTER" wrappingWidth="226.77734375" />
+                  <Text layoutX="393.0" layoutY="397.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="label" text="Marina Fawzy" textAlignment="CENTER" wrappingWidth="164.77734375" />
                </children>
             </AnchorPane>
          </content>
       </Tab>
-        <Tab fx:id="allItemsPage" text="All Items">
-            <AnchorPane>
-                <TableView fx:id="itemsTable" layoutX="60.0" layoutY="14.0" prefHeight="478.0" prefWidth="895.0">
-                    <columns>
-                        <TableColumn fx:id="itemCategoryColumn" text="Item ID" />
-                  <TableColumn fx:id="itemCategoryColumn1" prefWidth="132.0" text="Item Name" />
-                        <TableColumn fx:id="itemDescriptionColumn" prefWidth="136.0" text="Item Category" />
-                        <TableColumn fx:id="itemPriceColumnInItemsTab" minWidth="7.0" prefWidth="129.0" text="Price" />
-                    </columns>
-                </TableView>
-            <ComboBox fx:id="itemCategoryComboBox" layoutX="262.0" layoutY="513.0" prefWidth="150.0" promptText="item category" />
-            <TextField fx:id="itemNameTf" layoutX="60.0" layoutY="514.0" promptText="item name" />
-            <TextField fx:id="itemPriceTf" layoutX="424.0" layoutY="514.0" promptText="item price" />
-            <Button fx:id="addToWishlistButton" layoutX="620.0" layoutY="513.0" mnemonicParsing="false" text="Add To Wishlist" />
-            <Button fx:id="clearButton" layoutX="901.0" layoutY="512.0" mnemonicParsing="false" text="Clear" />
-            <Button fx:id="addToAllItemsButton" layoutX="755.0" layoutY="512.0" mnemonicParsing="false" text="Add To All Items" />
-            </AnchorPane>
-        </Tab>
-        <Tab fx:id="connectPage" text="Connect">
-            <AnchorPane>
-                <Label fx:id="allContactsLabel" layoutX="10" layoutY="10" text="All Contacts" textFill="WHITE">
-               <font>
-                  <Font size="15.0" />
-               </font></Label>
-            <Button fx:id="addFriendButton" layoutX="24.0" layoutY="516.0" mnemonicParsing="false" text="Add Friend" />
-            <TableView fx:id="allUsersTable" layoutX="24.0" layoutY="43.0" prefHeight="460.0" prefWidth="867.0">
-               <columns>
-                  <TableColumn fx:id="itemCategoryColumn1" prefWidth="128.0" text="First Name" />
-                  <TableColumn fx:id="itemPriceColumnInItemsTab1" minWidth="7.0" prefWidth="119.0" text="Last Name" />
-                  <TableColumn fx:id="itemCategoryColumn11" prefWidth="128.0" text="Email" />
-               </columns>
-            </TableView>
-            <TextField fx:id="friendSearchTf" layoutX="127.0" layoutY="516.0" promptText="Search" />
-            </AnchorPane>
-        </Tab>
-        <Tab fx:id="notificationsPage" text="Notifications">
-            <AnchorPane>
-                <Label fx:id="notificationsLabel" layoutX="10" layoutY="10" text="Notifications" textFill="WHITE">
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-
-                <ListView fx:id="notificationsListView" layoutX="10" layoutY="40" prefHeight="422.0" prefWidth="907.0" />
-            </AnchorPane>
-        </Tab>
     </TabPane>
 
 </VBox>

@@ -5,6 +5,21 @@ public class ItemDTO {
     private String itemName;
     private double itemPrice;
     private String itemCategory;
+    private double total_contribution;
+
+    public ItemDTO(String itemName, double itemPrice, double total_contribution) {
+        this.itemName = itemName;
+        this.itemPrice = itemPrice;
+        this.total_contribution = total_contribution;
+    }
+
+    public double getTotal_contribution() {
+        return total_contribution;
+    }
+
+    public void setTotal_contribution(double total_contribution) {
+        this.total_contribution = total_contribution;
+    }
 
     // Default constructor
     public ItemDTO() {

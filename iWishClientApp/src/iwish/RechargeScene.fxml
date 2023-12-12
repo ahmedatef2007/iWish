@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane id="AnchorPane" prefHeight="280.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iwish.RechargeSceneController">
+<AnchorPane id="AnchorPane" prefHeight="280.0" prefWidth="600.0" stylesheets="@wish.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="iwish.RechargeSceneController">
    <children>
-      <Pane layoutX="8.0" layoutY="9.0" prefHeight="263.0" prefWidth="585.0" style="-fx-background-color: #fff; -fx-background-radius: 20,20,20,20; -fx-border-radius: 20,20,20,20;" stylesheets="@mainpage.css">
+      <Pane layoutX="8.0" layoutY="9.0" prefHeight="263.0" prefWidth="585.0" style="-fx-background-color: #fff; -fx-background-radius: 20,20,20,20; -fx-border-radius: 20,20,20,20;">
          <effect>
             <DropShadow color="#d0d0d0" />
          </effect>
@@ -29,7 +29,7 @@
             <Text layoutX="42.0" layoutY="103.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CVV *" />
             <TextField fx:id="Amount" layoutX="41.0" layoutY="176.0" />
             <Text layoutX="42.0" layoutY="170.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Amount *" />
-            <Button fx:id="confirmButton" layoutX="249.0" layoutY="223.0" mnemonicParsing="false" onAction="#recharge" styleClass="login" stylesheets="@design.css" text="Confirm" />
+            <Button fx:id="confirmButton" layoutX="249.0" layoutY="223.0" mnemonicParsing="false" onAction="#recharge" text="Confirm" />
          </children>
       </Pane>
    </children>

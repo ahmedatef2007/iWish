@@ -17,8 +17,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 
@@ -30,7 +31,7 @@ import javax.swing.JOptionPane;
 public class LoginRegisterFXMLDocumentController implements Initializable {
 
     @FXML
-    private BorderPane login_form;
+    private AnchorPane login_form;
     @FXML
     private Button si_createAccountBtn;
     private TextField si_username;
@@ -54,7 +55,7 @@ public class LoginRegisterFXMLDocumentController implements Initializable {
     @FXML
     private TextField su_lastName;
     @FXML
-    private BorderPane signup_form;
+    private AnchorPane signup_form;
     @FXML
     private TextField si_userEmail;
     private boolean switchToLoginForm;
@@ -64,7 +65,6 @@ public class LoginRegisterFXMLDocumentController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }
 
     @FXML
@@ -72,7 +72,7 @@ public class LoginRegisterFXMLDocumentController implements Initializable {
         try {
             ClientSocketManager.initializeSocket();
 
-            if (si_userEmail.getText().isEmpty() || si_password.getText().isEmpty()) {
+            if (si_userEmail == null || si_userEmail.getText().isEmpty() || si_password.getText().isEmpty()) {
                 showAlert(JOptionPane.ERROR_MESSAGE, "Error Message", "Please fill in your username and password");
                 return;
             }
@@ -92,10 +92,8 @@ public class LoginRegisterFXMLDocumentController implements Initializable {
             String response = ClientSocketManager.getInputStream().readLine();
 
             if (response.equals("succeed")) {
-                showAlert(JOptionPane.INFORMATION_MESSAGE, "Information Message", "Login Success!");
-
+                //showAlert(JOptionPane.INFORMATION_MESSAGE, "Information Message", "Login Success!");
                 si_userEmail.getScene().getWindow().hide();
-
                 // Move to the main screen
                 FXMLLoader mainPageLoader = new FXMLLoader(getClass().getResource("MainPage.fxml"));
                 Parent mainPageRoot = mainPageLoader.load();
@@ -124,13 +122,19 @@ public class LoginRegisterFXMLDocumentController implements Initializable {
     }
 
     private void showAlert(int type, String title, String content) {
-        Platform.runLater(() -> {
-            JOptionPane optionPane = new JOptionPane(content, type);
-            JDialog dialog = optionPane.createDialog(title);
-            dialog.setAlwaysOnTop(true);
-            dialog.setVisible(true);
-        });
-    }
+    Platform.runLater(() -> {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        alert.initStyle(StageStyle.UNDECORATED); // Optional: Remove window decorations
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        
+        // Apply custom CSS class to the alert dialog
+        alert.getDialogPane().getStyleClass().add("custom-alert");
+
+        alert.showAndWait();
+    });
+}
 
     @FXML
     public void registerAccount() {

@@ -10,10 +10,11 @@ package dto;
  * @author ahmed
  */
 public class MyWishlistItemDTO {
-    String id ;
-    String item_name ; 
-    String item_price ; 
-    double total_contribution ;
+
+    String id;
+    String item_name;
+    String item_price;
+    double total_contribution;
 
     public MyWishlistItemDTO(String id, String item_name, String item_price, double total_contribution) {
         this.id = id;
@@ -22,18 +23,15 @@ public class MyWishlistItemDTO {
         this.total_contribution = total_contribution;
     }
 
+    public MyWishlistItemDTO() {
+    }
+
     public String getId() {
         return id;
     }
 
     public void setId(String id) {
         this.id = id;
-    }
-
-
-
-    public MyWishlistItemDTO() {
-        
     }
 
     public String getItem_name() {
@@ -59,6 +57,6 @@ public class MyWishlistItemDTO {
     public void setTotal_contribution(double total_contribution) {
         this.total_contribution = total_contribution;
     }
-    
-    
+
+
 }

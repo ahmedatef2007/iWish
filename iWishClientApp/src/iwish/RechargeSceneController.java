@@ -1,21 +1,17 @@
 package iwish;
 
 import client.ClientSocketManager;
-import dto.DataHolder;
-import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import javax.swing.JOptionPane;
 
 /**
@@ -25,46 +21,72 @@ import javax.swing.JOptionPane;
  */
 public class RechargeSceneController implements Initializable {
 
+    @FXML
     private TextField Amount;
-    
     private String email;
     @FXML
-    private TableView<?> contributers_tableview;
+    private TextField cardNum;
     @FXML
-    private TableColumn<?, ?> contributers_firstname_column;
+    private TextField CVV;
     @FXML
-    private TableColumn<?, ?> contributers_lastname_column;
+    private DatePicker ExpireDate;
     @FXML
-    private TableColumn<?, ?> contributers_email_column;
+    private Button confirmButton;
+
     @FXML
-    private TableColumn<?, ?> contributers_amount_column;
-    /**
-     * Initializes the controller class.
-     */
     public void recharge() {
         String amount = Amount.getText();
+        String cardNumber = cardNum.getText();
+        String cvv = CVV.getText();
 
-        if (amount == null || amount.isEmpty() || !amount.matches("\\d+(\\.\\d+)?")) {
-            JOptionPane.showMessageDialog(null, "Please enter a valid amount (numbers only)");
+        if (!isValidAmount(amount) || !isValidCardNumber(cardNumber) || !isValidCVV(cvv)) {
+            showValidationError("Invalid input. Please check your entries.");
             return;
         }
 
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Confirm Transaction");
-        String s = "Are you sure you want to recharge your balance with " + amount + "?";
-        alert.setContentText(s);
-        Optional<ButtonType> result = alert.showAndWait();
+        int result = JOptionPane.showConfirmDialog(
+                null,
+                "Are you sure you want to recharge your balance with " + amount + "?",
+                "Confirm Transaction",
+                JOptionPane.YES_NO_OPTION
+        );
 
-        if (result.isPresent() && result.get() == ButtonType.OK) {
-            // Initialize the socket and output stream
+        if (result == JOptionPane.YES_OPTION) {
             ClientSocketManager.initializeSocket();
-            // Send recharge request and data to the server
             ClientSocketManager.getOutputStream().println("Recharge");
-            ClientSocketManager.getOutputStream().println(email); // user email 
-            ClientSocketManager.getOutputStream().println(amount); // amount
+            ClientSocketManager.getOutputStream().println(email);
+            ClientSocketManager.getOutputStream().println(amount);
             JOptionPane.showMessageDialog(null, "Recharging has been done successfully, refresh your profile");
 
+            closeWindow();
         }
+    }
+
+    private void showValidationError(String message) {
+        JOptionPane.showMessageDialog(null, message, "Validation Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    private boolean isValidAmount(String amount) {
+        return amount != null && amount.matches("\\d+(\\.\\d+)?") && Double.parseDouble(amount) >= 0;
+    }
+
+    private boolean isValidCardNumber(String cardNumber) {
+        return cardNumber != null && cardNumber.matches("\\d+") && Long.parseLong(cardNumber) > 0;
+    }
+
+    private boolean isValidCVV(String cvv) {
+        return cvv != null && cvv.matches("\\d{1,3}");
+    }
+
+    /**
+     * private void showValidationError(String message) { Alert alert = new
+     * Alert(Alert.AlertType.ERROR); alert.setTitle("Validation Error");
+     * alert.setContentText(message); alert.showAndWait(); }
+     *
+     */
+    private void closeWindow() {
+        Stage stage = (Stage) Amount.getScene().getWindow();
+        stage.close();
     }
 
     public void setEmail(String email) {
@@ -72,7 +94,7 @@ public class RechargeSceneController implements Initializable {
     }
 
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+    public void initialize(URL location, ResourceBundle resources) {
+
     }
 }
