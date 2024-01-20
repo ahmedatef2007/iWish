@@ -1,8 +1,3 @@
-# iWish
-
-Javafx Network / DB Application
-i-Wish Project
-
 # Overview
 
 The i-Wish project is a desktop application designed to bring joy and happiness by facilitating the process of sharing and fulfilling wishes among friends. Users can connect with friends, create and manage wish lists, and contribute towards fulfilling the wishes of their friends. The application is divided into client-side and server-side functionalities to ensure smooth communication and data management.
