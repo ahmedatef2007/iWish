@@ -416,11 +416,19 @@ public class DataAccessLayer {
                         int notificationId = resultSet.getInt("notification_id");
                         int fromUserId = resultSet.getInt("from_user_id");
                         String notificationText = resultSet.getString("notification_text");
+<<<<<<< HEAD
                         //boolean isNotified = resultSet.getBoolean("is_notified");
                         int wishId = resultSet.getInt("wish_id");
 
                         NotificationDTO notification = new NotificationDTO(
                                 notificationId, userEmail, fromUserId, notificationText, wishId);
+=======
+                        boolean isNotified = resultSet.getBoolean("is_notified");
+                        int wishId = resultSet.getInt("wish_id");
+
+                        NotificationDTO notification = new NotificationDTO(
+                                notificationId, userEmail, fromUserId, notificationText, isNotified, wishId);
+>>>>>>> d4b5a53 (Final Commit)
 
                         notifications.add(notification);
                     }
@@ -481,6 +489,7 @@ public class DataAccessLayer {
     //////////////////friend_request
     public Vector<UserDTO> retrieveallusers(String cuemail) {
         connect = ConnectDb();
+<<<<<<< HEAD
         Vector<UserDTO> alluser = null;
         try {
             alluser = new Vector<UserDTO>();
@@ -496,6 +505,30 @@ public class DataAccessLayer {
             prepare.setString(1, cuemail);
             prepare.setString(2, cuemail);
             prepare.setString(3, cuemail);
+=======
+        Vector<String> allrequestusers = new Vector<>();
+        try {
+            prepare = connect.prepareStatement("select * from friend_request where sender_email = ?"
+                    + "and is_accepted IS NULL ");
+            prepare.setString(1, cuemail);
+            result = prepare.executeQuery();
+            while (result.next()) {
+                //  System.out.println("Yesssss");
+                //System.out.println(result.getString("receiver_email"));
+                allrequestusers.add(result.getString("receiver_email"));
+
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DataAccessLayer.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        Vector<UserDTO> alluser = null;
+        try {
+            alluser = new Vector<UserDTO>();
+            prepare = connect.prepareStatement("SELECT * FROM users", ResultSet.TYPE_SCROLL_INSENSITIVE,
+                    ResultSet.CONCUR_UPDATABLE);
+>>>>>>> d4b5a53 (Final Commit)
             result = prepare.executeQuery();
 
             while (result.next()) {
@@ -506,7 +539,15 @@ public class DataAccessLayer {
                 udto.setLastName(result.getString("lastName"));
 
                 udto.setEmail(result.getString("email"));
+<<<<<<< HEAD
                 alluser.add(udto);
+=======
+                if (cuemail.equals(result.getString("email")) || allrequestusers.contains(result.getString(3))) {
+                } else {
+                    alluser.add(udto);
+                }
+
+>>>>>>> d4b5a53 (Final Commit)
             }
         } catch (SQLException ex) {
             Logger.getLogger(DataAccessLayer.class.getName()).log(Level.SEVERE, null, ex);
@@ -531,7 +572,11 @@ public class DataAccessLayer {
             prepare.setDate(3, date);
 
             prepare.executeUpdate();
+<<<<<<< HEAD
             closeDatabaseResources();
+=======
+            prepare.close();
+>>>>>>> d4b5a53 (Final Commit)
             return true;
 
         } catch (SQLException ex) {
@@ -604,6 +649,7 @@ public class DataAccessLayer {
 
     }
 
+<<<<<<< HEAD
     public Vector<UserDTO> SearchUsers(String cuemail, String emaillike) {
         connect = ConnectDb();
         Vector<UserDTO> allusersearch = null;
@@ -847,4 +893,6 @@ public class DataAccessLayer {
         return allItemList;
     }
 
+=======
+>>>>>>> d4b5a53 (Final Commit)
 }

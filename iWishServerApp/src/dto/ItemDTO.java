@@ -7,6 +7,7 @@ public class ItemDTO {
     private String itemCategory;
     private double total_contribution;
 
+<<<<<<< HEAD
     public ItemDTO(String itemName, double itemPrice, double total_contribution) {
         this.itemName = itemName;
         this.itemPrice = itemPrice;
@@ -25,6 +26,12 @@ public class ItemDTO {
     public ItemDTO() {
     }
 
+=======
+    // Default constructor
+    public ItemDTO() {
+    }
+
+>>>>>>> d4b5a53 (Final Commit)
     // Parameterized constructor
     public ItemDTO(int itemId, String itemName, double itemPrice, String itemCategory) {
         this.itemId = itemId;

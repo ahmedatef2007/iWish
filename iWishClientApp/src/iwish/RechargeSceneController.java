@@ -23,6 +23,10 @@ public class RechargeSceneController implements Initializable {
 
     @FXML
     private TextField Amount;
+<<<<<<< HEAD
+=======
+
+>>>>>>> d4b5a53 (Final Commit)
     private String email;
     @FXML
     private TextField cardNum;
@@ -51,7 +55,11 @@ public class RechargeSceneController implements Initializable {
                 JOptionPane.YES_NO_OPTION
         );
 
+<<<<<<< HEAD
         if (result == JOptionPane.YES_OPTION) {
+=======
+        if (result.isPresent() && result.get() == ButtonType.OK) {
+>>>>>>> d4b5a53 (Final Commit)
             ClientSocketManager.initializeSocket();
             ClientSocketManager.getOutputStream().println("Recharge");
             ClientSocketManager.getOutputStream().println(email);
@@ -62,6 +70,7 @@ public class RechargeSceneController implements Initializable {
         }
     }
 
+<<<<<<< HEAD
     private void showValidationError(String message) {
         JOptionPane.showMessageDialog(null, message, "Validation Error", JOptionPane.ERROR_MESSAGE);
     }
@@ -86,6 +95,12 @@ public class RechargeSceneController implements Initializable {
      */
     private void closeWindow() {
         Stage stage = (Stage) Amount.getScene().getWindow();
+=======
+    private void closeWindow() {
+        // Get the current stage
+        Stage stage = (Stage) Amount.getScene().getWindow();
+        // Close the stage
+>>>>>>> d4b5a53 (Final Commit)
         stage.close();
     }
 

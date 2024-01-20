@@ -28,6 +28,7 @@ public class FriendRequestDTO {
         this.is_accepted = is_accepted;
     }
 
+<<<<<<< HEAD
     public String getSender_email() {
         return sender_email;
     }
@@ -37,6 +38,17 @@ public class FriendRequestDTO {
     }
 
     public FriendRequestDTO() {
+=======
+    public FriendRequestDTO() {
+    }
+
+    public String getSender_email() {
+        return sender_email;
+    }
+
+    public void setSender_email(String sender_email) {
+        this.sender_email = sender_email;
+>>>>>>> d4b5a53 (Final Commit)
     }
 
     public String getReceiver_email() {

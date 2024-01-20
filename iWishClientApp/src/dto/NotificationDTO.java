@@ -7,18 +7,30 @@ public class NotificationDTO {
     private String user_email;
     private int from_user_id;
     private String notification_text;
+<<<<<<< HEAD
     //private boolean is_notified;
+=======
+    private boolean is_notified;
+>>>>>>> d4b5a53 (Final Commit)
     private int wish_id;
 
     // Constructors, getters, and setters
 
     public NotificationDTO(int notification_id, String user_email, int from_user_id, String notification_text,
+<<<<<<< HEAD
                              int wish_id) {
+=======
+                            boolean is_notified, int wish_id) {
+>>>>>>> d4b5a53 (Final Commit)
         this.notification_id = notification_id;
         this.user_email = user_email;
         this.from_user_id = from_user_id;
         this.notification_text = notification_text;
+<<<<<<< HEAD
         //this.is_notified = is_notified;
+=======
+        this.is_notified = is_notified;
+>>>>>>> d4b5a53 (Final Commit)
         this.wish_id = wish_id;
     }
 
@@ -58,7 +70,10 @@ public class NotificationDTO {
         this.notification_text = notification_text;
     }
 
+<<<<<<< HEAD
     /*
+=======
+>>>>>>> d4b5a53 (Final Commit)
     public boolean isIs_notified() {
         return is_notified;
     }
@@ -66,7 +81,10 @@ public class NotificationDTO {
     public void setIs_notified(boolean is_notified) {
         this.is_notified = is_notified;
     }
+<<<<<<< HEAD
     */
+=======
+>>>>>>> d4b5a53 (Final Commit)
 
     public int getWish_id() {
         return wish_id;

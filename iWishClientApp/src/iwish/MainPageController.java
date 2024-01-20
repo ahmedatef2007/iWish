@@ -20,13 +20,18 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+<<<<<<< HEAD
 import javafx.scene.input.KeyEvent;
+=======
+import javafx.scene.image.ImageView;
+>>>>>>> d4b5a53 (Final Commit)
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -66,6 +71,20 @@ public class MainPageController {
     @FXML
     private Label friendsLabel1;
     @FXML
+<<<<<<< HEAD
+=======
+    private TableView<?> itemsTable11;
+    @FXML
+    private TableColumn<?, ?> itemCategoryColumn11;
+    @FXML
+    private TableColumn<?, ?> itemPriceColumnInItemsTab11;
+    @FXML
+    private TableColumn<?, ?> itemCategoryColumn111;
+    @FXML
+    private Label friendsLabel11;
+    // atef ///////////////////////////////////////////////////////////////
+    @FXML
+>>>>>>> d4b5a53 (Final Commit)
     private Tab homePage;
     @FXML
     private TableColumn<MyWishlistItemDTO, String> wishlist_itemNameColumn;
@@ -105,6 +124,11 @@ public class MainPageController {
     private ObservableList<MyContributersDTO> myContributersList;
     @FXML
     private Button contribute_to_fiend_button;
+<<<<<<< HEAD
+=======
+    @FXML
+    private Button addToAllItemsButton;
+>>>>>>> d4b5a53 (Final Commit)
 
     @FXML
     private TableView<NotificationDTO> notifications_tableView;
@@ -119,6 +143,15 @@ public class MainPageController {
     @FXML
     private Button clear_notifications;
     @FXML
+<<<<<<< HEAD
+=======
+    private TableView<?> friendsWishlist_tableView;
+    @FXML
+    private TableColumn<?, ?> FriendWishlist_itemName_col;
+    @FXML
+    private TableColumn<?, ?> FriendWishlist_itemPrice_col;
+    @FXML
+>>>>>>> d4b5a53 (Final Commit)
     private Button accept;
     @FXML
     private Button cancel;
@@ -147,6 +180,7 @@ public class MainPageController {
     @FXML
     private TableColumn<ItemDTO, String> m_col_itemcategory;
     private ObservableList<ItemDTO> AllItemsData;
+<<<<<<< HEAD
     @FXML
     private Label user_fname_label;
     @FXML
@@ -217,6 +251,8 @@ public class MainPageController {
     public void stopUpdatingTasks() {
         scheduler.shutdownNow();
     }
+=======
+>>>>>>> d4b5a53 (Final Commit)
 
     public void initialize() {
         tabPane.setTabClosingPolicy(TabPane.TabClosingPolicy.UNAVAILABLE);
@@ -343,8 +379,19 @@ public class MainPageController {
         }
     }
 
+<<<<<<< HEAD
     public void updateBalance(double newBalance) {
         balance_label.setText(String.format("Balance: $%.2f", newBalance));
+=======
+    public void setUserEmail(String email) {
+        userEmailLabel.setText(email);
+        System.out.println("Received data in MainPageController: " + email);
+        showMywishlistItemsData();
+        initializeNotificationsListView();
+        showAllItemsData();
+        initializeconnectPage();
+        initializefriendrequstPage();
+>>>>>>> d4b5a53 (Final Commit)
     }
 
     private ObservableList<MyWishlistItemDTO> initializeUserWishlist(String email) {
@@ -376,9 +423,12 @@ public class MainPageController {
 
     public void showMywishlistItemsData() {
         myWishlistItemsData = initializeUserWishlist(email);
+
         wishlist_itemNameColumn.setCellValueFactory(new PropertyValueFactory<>("item_name"));
         wishlist_itemPriceColumn.setCellValueFactory(new PropertyValueFactory<>("item_price"));
         wishlist_friendsContributionColumn.setCellValueFactory(new PropertyValueFactory<>("total_contribution"));
+
+        // last 
         wishlistTable.setItems(myWishlistItemsData);
     }
 
@@ -449,7 +499,11 @@ public class MainPageController {
             if (notificationsList != null && !notificationsList.isEmpty()) {
                 notifications.addAll(notificationsList);
             } else {
+<<<<<<< HEAD
                 //("Notifications list is empty or couldn't be retrieved.");
+=======
+                System.out.println("Notifications list is empty or couldn't be retrieved.");
+>>>>>>> d4b5a53 (Final Commit)
             }
         } catch (IOException ex) {
             ex.printStackTrace();
@@ -582,7 +636,11 @@ public class MainPageController {
 
             String response = ClientSocketManager.getInputStream().readLine();
             if (response.equals("success")) {
+<<<<<<< HEAD
                 showAlert(Alert.AlertType.INFORMATION, "Information Message", "Item removed from wishlist successfully.");
+=======
+                showAlert("Item removed from wishlist successfully.");
+>>>>>>> d4b5a53 (Final Commit)
             } else {
                 showAlert("Failed to remove item from wishlist.");
             }
@@ -617,6 +675,7 @@ public class MainPageController {
         } catch (IOException ex) {
             Logger.getLogger(MainPageController.class.getName()).log(Level.SEVERE, null, ex);
         }
+<<<<<<< HEAD
 
     }
 
@@ -1099,6 +1158,167 @@ public class MainPageController {
         m_col_itemcategory.setCellValueFactory(new PropertyValueFactory<>("itemCategory"));
 
         m_itemsTable.setItems(uiAllItemsList);
+=======
+>>>>>>> d4b5a53 (Final Commit)
 
     }
+
+    private void initializefriendrequstPage() {
+
+        ClientSocketManager.getOutputStream().println("AllfriendRequest");// request type
+        String response = null;
+        try {
+            response = ClientSocketManager.getInputStream().readLine();
+        } catch (IOException ex) {
+            Logger.getLogger(MainPageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // System.out.println("email   "+email);
+        Type listType = new TypeToken<List<FriendRequestDTO>>() {
+        }.getType();
+        Gson gson = new Gson();
+        System.out.println(response);
+
+        List<FriendRequestDTO> allfriendRequest = gson.fromJson(response, listType);
+
+        ObservableList<FriendRequestDTO> allfriendRequestui = FXCollections.observableArrayList();
+        allfriendRequestui.addAll(allfriendRequest);
+        requestfriendtEmailName_col.setCellValueFactory(new PropertyValueFactory<>("sender_email"));
+        friendrequest_Date_col.setCellValueFactory(new PropertyValueFactory<>("requestDate"));
+        friend_request.setItems(allfriendRequestui);
+
+    }
+
+    @FXML
+    private void Accept_friend_action(MouseEvent event) {
+        ClientSocketManager.initializeSocket();
+        FriendRequestDTO friendRequestDTO = friend_request.getSelectionModel().getSelectedItem();
+        String fromemail = friendRequestDTO.getSender_email();
+
+        ClientSocketManager.getOutputStream().println("AcceptfriendRequest");// request type
+        ClientSocketManager.getOutputStream().println(fromemail);
+        String response;
+        try {
+            response = ClientSocketManager.getInputStream().readLine();
+            System.out.println("AcceptfriendRequest  " + response);
+            friend_request.getItems().remove(friendRequestDTO);
+
+        } catch (IOException ex) {
+            Logger.getLogger(MainPageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    @FXML
+    private void Cancel_friend_action(MouseEvent event) {
+
+        ClientSocketManager.initializeSocket();
+
+        FriendRequestDTO friendRequestDTO = friend_request.getSelectionModel().getSelectedItem();
+        String fromemail = friendRequestDTO.getSender_email();
+
+        ClientSocketManager.getOutputStream().println("cancelfriendRequest");// request type
+        ClientSocketManager.getOutputStream().println(fromemail);
+        String response;
+        try {
+            response = ClientSocketManager.getInputStream().readLine();
+            System.out.println("del  " + response);
+            friend_request.getItems().remove(friendRequestDTO);
+
+        } catch (IOException ex) {
+            Logger.getLogger(MainPageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    @FXML
+    private void addfreindaction(MouseEvent event) {
+        ClientSocketManager.initializeSocket();
+
+        ClientSocketManager.getOutputStream().println("addfriendRequest");// request type
+
+        UserDTO userDTO = allUsersTable.getSelectionModel().getSelectedItem();
+        String toemail = userDTO.getEmail();
+        System.out.println("addfriend   " + toemail);
+        ClientSocketManager.getOutputStream().println(toemail);
+        try {
+            String response = ClientSocketManager.getInputStream().readLine();
+            System.out.println("response  " + response);
+        } catch (IOException ex) {
+            Logger.getLogger(MainPageController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        allUsersTable.getItems().remove(userDTO);
+
+    }
+
+    private ObservableList<ItemDTO> inializeAllItems() {
+        ObservableList<ItemDTO> uiAllItemsList = FXCollections.observableArrayList();
+
+        try {
+            ClientSocketManager.initializeSocket();
+            ClientSocketManager.getOutputStream().println("getAllItems");
+
+            String jsonAllItems = ClientSocketManager.getInputStream().readLine();
+
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<ItemDTO>>() {
+            }.getType();
+            List<ItemDTO> allitemsList = gson.fromJson(jsonAllItems, listType);
+
+            Platform.runLater(() -> {
+                uiAllItemsList.addAll(allitemsList);
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return uiAllItemsList;
+    }
+
+    public void showAllItemsData() {
+        AllItemsData = inializeAllItems();
+        m_col_itemid.setCellValueFactory(new PropertyValueFactory<>("itemId"));
+        m_col_itemname.setCellValueFactory(new PropertyValueFactory<>("itemName"));
+        m_col_itemPrice.setCellValueFactory(new PropertyValueFactory<>("itemPrice"));
+        m_col_itemcategory.setCellValueFactory(new PropertyValueFactory<>("itemCategory"));
+
+        m_itemsTable.setItems(AllItemsData);
+
+    }
+
+    @FXML
+    public void addToWishlistBtn() {
+        ItemDTO item = m_itemsTable.getSelectionModel().getSelectedItem();
+        String id = String.valueOf(item.getItemId());
+        System.out.println(id);
+        try {
+            ClientSocketManager.initializeSocket();
+            ClientSocketManager.getOutputStream().println("addToWishlist");
+            ClientSocketManager.getOutputStream().println(id);
+            ClientSocketManager.getOutputStream().println(email);
+            String response = ClientSocketManager.getInputStream().readLine();
+            if ("succeed".equals(response)) {
+                showAlert(Alert.AlertType.INFORMATION, "Information Message", "Item added to wishlist successfully!");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Error Message", "Failed to add item to wishlist");
+            }
+
+        } catch (NumberFormatException e) {
+            showAlert(Alert.AlertType.ERROR, "Error Message", "Invalid input. Please enter valid numbers.");
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            showMywishlistItemsData();
+        }
+    }
+
+    public void showAlert(Alert.AlertType alertType, String title, String content) {
+        Platform.runLater(() -> {
+            Alert alert = new Alert(alertType);
+            alert.setTitle(title);
+            alert.setHeaderText(null);
+            alert.setContentText(content);
+            alert.showAndWait();
+        });
+    }
+
 }

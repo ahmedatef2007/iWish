@@ -1,4 +1,3 @@
-package iwishserverapp;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -20,8 +19,11 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Vector;
+<<<<<<< HEAD
 import java.util.logging.Level;
 import java.util.logging.Logger;
+=======
+>>>>>>> d4b5a53 (Final Commit)
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javax.swing.JButton;
@@ -175,7 +177,221 @@ public class IWishServerApp extends Application {
                     if (str == null || str.equals("close")) {
                         closeClient();
                         break;
+<<<<<<< HEAD
                     }
+=======
+                    } else if (str.equals("loginRequest")) {
+
+                        Gson gson = new Gson();
+                        // Read the JSON object string from the client
+                        String jsonUser = reader.readLine();
+                        // Convert the JSON string to a UserDTO object
+                        UserDTO userDTO = gson.fromJson(jsonUser, UserDTO.class);
+                        cuemail = userDTO.getEmail();
+
+                        boolean auth = new db.DataAccessLayer().login(userDTO.getEmail(), userDTO.getPassword());
+                        if (auth) {
+                            sendMessage("succeed");
+                        } else {
+                            sendMessage("failed");
+                        }
+                    } else if (str.equals("registerRequest")) {
+                        try {
+                            Gson gson = new Gson();
+                            UserDTO newUser = gson.fromJson(reader.readLine(), UserDTO.class);
+
+                            boolean isRegistered = new db.DataAccessLayer().register(
+                                    newUser.getUsername(), newUser.getPassword(), newUser.getEmail(),
+                                    newUser.getFirstName(), newUser.getLastName(), String.valueOf(newUser.getBalance()));
+                            if (isRegistered) {
+                                sendMessage("succeed");
+                            } else {
+                                sendMessage("failed");
+                            }
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                            sendMessage("failed");
+                        }
+                    } else if (str.equals("Recharge")) { // email , amount
+                        int addedBalance = new db.DataAccessLayer().rechargeBalance(reader.readLine(), reader.readLine());
+                        if (addedBalance == 1) {
+                            System.out.println("Balance Recharge Done");
+                        } else {
+                            System.out.println("Balance Recharge is not done");
+                        }
+                    } else if (str.equals("getUserWishlist")) {
+                        try {
+                            Gson gson = new Gson();
+                            String userEmail = reader.readLine();
+                            //System.out.println("User Email: " + userEmail);
+
+                            Vector<MyWishlistItemDTO> wishlistItems = new db.DataAccessLayer().getUserWishlist(userEmail);
+
+                            System.out.println("Wishlist Items: " + wishlistItems);
+
+                            String jsonWishlist = gson.toJson(wishlistItems);
+                            sendMessage(jsonWishlist);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                            sendMessage("failed");
+                        }
+                    } else if (str.equals("ShowContributers")) {
+                        Gson gson = new Gson();
+                        String userEmail = reader.readLine();
+                        String itemName = reader.readLine();
+                        Vector<MyContributersDTO> contributersList
+                                = new db.DataAccessLayer().getContributerslist(userEmail, itemName);
+                        String jsonWishlist = gson.toJson(contributersList);
+                        sendMessage(jsonWishlist);
+
+                    } else if (str.equals("clearUserWishlist")) {
+                        try {
+                            String userEmail = reader.readLine();
+                            boolean success = new db.DataAccessLayer().clearUserWishlist(userEmail);
+                            if (success) {
+                                sendMessage("success");
+                            } else {
+                                sendMessage("failed");
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            sendMessage("failed");
+                        }
+                    } else if (str.equals("removeItemFromWishlist")) {
+                        try {
+                            String userEmail = reader.readLine();
+                            String itemId = reader.readLine();
+                            boolean success = new db.DataAccessLayer().removeItemFromWishlist(userEmail, itemId);
+                            if (success) {
+                                sendMessage("success");
+                            } else {
+                                sendMessage("failed");
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            sendMessage("failed");
+                        }
+                    } else if (str.equals("getUserNotifications")) {
+                        try {
+                            Gson gson = new Gson();
+                            String userEmail = reader.readLine();
+                            System.out.println("User Email: " + userEmail);
+
+                            Vector<NotificationDTO> notifications = new db.DataAccessLayer().getUserNotifications(userEmail);
+                            for (NotificationDTO not : notifications) {
+                                System.out.println("Notifications: " + not.getNotification_text());
+                            }
+                            System.out.println("Notifications: " + notifications);
+
+                            String jsonNotifications = gson.toJson(notifications);
+                            sendMessage(jsonNotifications);
+                        } catch (JsonSyntaxException e) {
+                            e.printStackTrace();
+                            sendMessage("failed");
+                        }
+                    } else if (str.equals("removeNotification")) {
+                        try {
+                            // Read the notification ID from the client
+                            int notificationId = Integer.parseInt(reader.readLine());
+
+                            // Remove the specified notification
+                            boolean removed = new db.DataAccessLayer().removeNotification(notificationId);
+                            if (removed) {
+                                sendMessage("success");
+                            } else {
+                                sendMessage("failed");
+                            }
+                        } catch (NumberFormatException | IOException e) {
+                            e.printStackTrace();
+                            sendMessage("failed");
+                        }
+                    } else if (str.equals("clearNotifications")) {
+                        try {
+                            // Read the user email from the client
+                            String userEmail = reader.readLine();
+
+                            // Clear all notifications for the specified user
+                            boolean cleared = new db.DataAccessLayer().clearUserNotifications(userEmail);
+                            if (cleared) {
+                                sendMessage("success");
+                            } else {
+                                sendMessage("failed");
+                            }
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                            sendMessage("failed");
+                        }
+                    }  else if (str.equals("getAllItems")) {
+                        Gson gson = new Gson();
+                        Vector<ItemDTO> allitemlist = new db.DataAccessLayer().getAllItems();
+                        System.out.println(allitemlist);
+                        String jsonAllItems = gson.toJson(allitemlist);
+                        sendMessage(jsonAllItems);
+
+                    } else if (str.equals("addToWishlist")) {
+                        String id = reader.readLine();
+                        String userEmail = reader.readLine();
+
+                        System.out.println("Received id Item: " + id);
+                        System.out.println("Received userEmail:" + userEmail);
+
+                        boolean isItemAdded = new db.DataAccessLayer().addToWishlist(id, userEmail);
+
+                        if (isItemAdded) {
+                            System.out.println("succeed");
+                            sendMessage("succeed");
+
+                        } else {
+                            System.out.println("failed");
+                            sendMessage("failed");
+                        }
+                    } else if (str.equals("getallusersRequest")) {
+                        Vector<UserDTO> users = new db.DataAccessLayer().retrieveallusers(cuemail);
+                        Gson gson = new Gson();
+
+                        String json = gson.toJson(users);
+                        sendMessage(json);
+
+                    } else if (str.equals("addfriendRequest")) {
+                        String toUserEmail = reader.readLine();
+                        boolean resultaddfriend = new db.DataAccessLayer().addfriend(cuemail,
+                                toUserEmail);
+                        if (resultaddfriend) {
+                            sendMessage("succeed");
+                        } else {
+                            sendMessage("failed");
+                        }
+
+                    } else if (str.equals("AllfriendRequest")) {
+                        Vector<FriendRequestDTO> allFriendRequest = new db.DataAccessLayer().AllfriendRequest(cuemail);
+                        Gson gson = new Gson();
+
+                        String json = gson.toJson(allFriendRequest);
+                        System.out.println(json);
+                        sendMessage(json);
+
+                    } else if (str.equals("cancelfriendRequest")) {
+                        String fromUserEmail = reader.readLine();
+
+                        boolean cancelfriendRequest = new db.DataAccessLayer().cancelfriendRequest(
+                                fromUserEmail, cuemail);
+                        if (cancelfriendRequest) {
+                            sendMessage("succeed");
+                        } else {
+                            sendMessage("failed");
+                        }
+
+                    } else if (str.equals("AcceptfriendRequest")) {
+                        String fromUserEmail = reader.readLine();
+
+                        boolean AcceptfriendRequest = new db.DataAccessLayer().AcceptfriendRequest(
+                                fromUserEmail, cuemail);
+                        if (AcceptfriendRequest) {
+                            sendMessage("succeed");
+                        } else {
+                            sendMessage("failed");
+                        }
+>>>>>>> d4b5a53 (Final Commit)
 
                     switch (str) {
                         case "loginRequest":
@@ -257,6 +473,7 @@ public class IWishServerApp extends Application {
                             // Handle unknown command or do nothing
                             break;
                     }
+
                 }
             } catch (IOException ex) {
                 // Handle SocketException: Connection reset
